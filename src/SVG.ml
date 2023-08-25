@@ -26,13 +26,15 @@ let text svg ?fill ?transform (x,y) t =
   let transform = prop "transform" transform in
   w svg "  <text x=\"%d\" y=\"%d\"%s%s>%s</text>" x y fill transform t
 
-let polyline svg ?stroke p =
+let polyline svg ?stroke ?stroke_width ?fill p =
   let p =
     List.map (fun (x,y) -> Printf.sprintf "%d,%d" x y) p
     |> String.concat " "
   in
   let stroke = prop "stroke" stroke in
-  w svg "  <polyline points=\"%s\"%s>" p stroke
+  let stroke_width = prop_int "stroke-width" stroke_width in
+  let fill = prop "fill" fill in
+  w svg "  <polyline points=\"%s\"%s%s%s>" p stroke stroke_width fill
 
 let to_string (svg:t) =
   Buffer.contents svg ^ "</svg>\n"
