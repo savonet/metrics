@@ -1,4 +1,4 @@
-(lang dune 3.0)
+(lang dune 2.9)
 (version 0.1.0)
 (name metrics)
 (source (github savonet/metrics))
