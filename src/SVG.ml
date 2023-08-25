@@ -1,3 +1,8 @@
+(* See
+   https://www.w3schools.com/graphics/svg_intro.asp
+   https://developer.mozilla.org/en-US/docs/Web/SVG
+*)
+
 type t = Buffer.t
 
 let w (svg:t) f = Printf.ksprintf (fun s -> Buffer.add_string svg s; Buffer.add_char svg '\n') f
@@ -23,10 +28,18 @@ let line svg ?stroke ?stroke_width ?style (x0,y0) (x1,y1) =
   let style = prop "style" style in
   w svg "  <line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\"%s%s%s/>" x0 y0 x1 y1 stroke stroke_width style
 
-let text svg ?fill ?transform (x,y) t =
+let text svg ?text_anchor ?fill ?transform (x,y) t =
+  let text_anchor =
+    match text_anchor with
+    | Some `Start -> "start"
+    | Some `Middle -> "middle"
+    | Some `End -> "end"
+    | None -> ""
+  in
+  let text_anchor = if text_anchor = "" then "" else Printf.sprintf " text-anchor=\"%s\"" text_anchor in
   let fill = prop "fill" fill in
   let transform = prop "transform" transform in
-  w svg "  <text x=\"%f\" y=\"%f\"%s%s>%s</text>" x y fill transform t
+  w svg "  <text x=\"%f\" y=\"%f\"%s%s%s>%s</text>" x y fill text_anchor transform t
 
 let polyline svg ?stroke ?stroke_width ?fill p =
   let p =

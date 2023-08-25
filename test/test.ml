@@ -10,7 +10,7 @@ let () =
 
 let () =
   Printf.printf "Testing plots...\n%!";
-  let s = Plot.svg ~width:1000. ~height:600. [0.,100.;1.,80.;2.,70.;3.,110.] in
+  let s = Plot.svg ~width:500. ~height:400. [0.,100.;1.,80.;2.,70.;3.,110.] in
   let f = open_out "plot.html" in
   output_string f s;
   close_out f
