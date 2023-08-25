@@ -1,3 +1,11 @@
+(library
+ (name plot)
+ (wrapped false)
+ (modules SVG)
+)
+
 (executable
-  (name metrics)
+ (name metrics)
+ (libraries plot)
+ (modules metrics)
 )

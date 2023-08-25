@@ -1,4 +1,4 @@
-all:
+all: build
 
-test:
-	@dune exec ./metrics.exe
+build:
+	@dune build

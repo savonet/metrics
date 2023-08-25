@@ -1,0 +1,12 @@
+(executable
+ (name test)
+ (libraries plot)
+ (modules test)
+)
+
+(rule
+ (alias runtest)
+ (action
+  (run ./test.exe)
+ )
+)
