@@ -1,7 +1,7 @@
 (library
  (name plot)
  (wrapped false)
- (modules SVG)
+ (modules SVG plot)
 )
 
 (executable
