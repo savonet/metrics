@@ -1,11 +1,13 @@
 (library
  (name plot)
  (wrapped false)
- (modules SVG plot)
+ (modules SVG plot metrics)
+ (libraries yaml)
 )
 
 (executable
- (name metrics)
+ (public_name metrics)
+ (name main)
  (libraries plot)
- (modules metrics)
+ (modules main)
 )

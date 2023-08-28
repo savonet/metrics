@@ -17,6 +17,8 @@ let () =
   
 let () =
   Printf.printf "Testing metrics...\n%!";
-  let dir = "metrics" in
-  if not (Sys.file_exists dir) then
-    assert (Sys.command "git clone -b metrics https://github.com/savonet/liquidsoap.git liquidsoap" = 0)
+  if not (Sys.file_exists "liquidsoap") then
+    assert (Sys.command "git clone -b metrics https://github.com/savonet/liquidsoap.git" = 0)
+  else
+    assert (Sys.command "cd liquidsoap && git pull" = 0);
+  Metrics.load_dir "liquidsoap"
