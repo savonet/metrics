@@ -6,7 +6,6 @@
 )
 
 (executable
- (public_name metrics)
  (name main)
  (libraries plot)
  (modules main)

@@ -38,7 +38,7 @@ let svg ?(margin=50.) ~width ~height ?x_min ?x_max ?y_min ?y_max points =
     let x = x_min in
     let y = y_min +. float i *. (y_max -. y_min) /. float ticks in
     SVG.line svg ~stroke:"black" (coord (x,y) ++ (-.tick/.2.,0.)) (coord (x,y) ++ (tick/.2.,0.));
-    SVG.text svg (coord (x,y)) ~fill:"black" ~text_anchor:`End (string_of_float y);
+    SVG.text svg (coord (x,y)) ~fill:"black" ~text_anchor:`End (Printf.sprintf "%.02f" y);
   done;
   SVG.polyline svg ~stroke:"red" ~stroke_width:2. ~fill:"none" points;
   SVG.to_string svg
