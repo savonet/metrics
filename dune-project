@@ -14,5 +14,7 @@
  (synopsis "Metrics for Liquidsoap")
  (description "Generate graph from Liquidsoap metrics.")
  (depends
-  dune)
+   dune
+   yaml
+ )
 )
