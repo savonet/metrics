@@ -4,12 +4,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Install packages
-      run: |
-        sudo apt-get -y update
-        sudo apt-get -y install ocaml-nox dune
-    - name: Build
-      run: dune build
-    - name: Test
-      run: dune test
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup OCaml
+      uses: ocaml/setup-ocaml@v2
+      with:
+        ocaml-compiler: 5.0.0
+    - name: Pin package
+      run: opam pin add -n .
+    - name: Install dependencies
+      run: opam depext -yt metrics
+    - name: Build and test
+      run: opam install -t .
