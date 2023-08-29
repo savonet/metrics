@@ -30,7 +30,7 @@ let svg ?(margin=50.) ~width ~height ?x_min ?x_max ?y_min ?y_max points =
   SVG.line svg ~stroke:"black" (coord (x_min,y_min)) (coord (x_min,y_max));
   let ticks = 5 in
   let tick = 10. in
-  for i = 0 to ticks do
+  for i = 0 to ticks - 1 do
     let x = x_min  +. float i *. (x_max -. x_min) /. float ticks in
     let y = y_min in
     SVG.line svg ~stroke:"black" (coord (x,y) ++ (0.,-.tick/.2.)) (coord (x,y) ++ (0.,tick/.2.));
@@ -40,5 +40,20 @@ let svg ?(margin=50.) ~width ~height ?x_min ?x_max ?y_min ?y_max points =
     SVG.line svg ~stroke:"black" (coord (x,y) ++ (-.tick/.2.,0.)) (coord (x,y) ++ (tick/.2.,0.));
     SVG.text svg (coord (x,y)) ~fill:"black" ~text_anchor:`End (Printf.sprintf "%.02f" y);
   done;
+  (* Arrow heads *)
+  (
+    let x, y = coord (x_max,y_min) in
+    SVG.polyline svg ~stroke:"black" ~fill:"none" [
+      x -. tick/.2., y +. tick/.2.;
+      x, y;
+      x -. tick/.2., y -. tick/.2.
+    ];
+    let x, y = coord (x_min,y_max) in
+    SVG.polyline svg ~stroke:"black" ~fill:"none" [
+      x -. tick/.2., y +. tick/.2.;
+      x, y;
+      x +. tick/.2., y +. tick/.2.
+    ];
+  );
   SVG.polyline svg ~stroke:"red" ~stroke_width:2. ~fill:"none" points;
   SVG.to_string svg

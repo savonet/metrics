@@ -49,7 +49,7 @@ let polyline svg ?stroke ?stroke_width ?fill p =
   let stroke = prop "stroke" stroke in
   let stroke_width = prop_float "stroke-width" stroke_width in
   let fill = prop "fill" fill in
-  w svg "  <polyline points=\"%s\"%s%s%s>" p stroke stroke_width fill
+  w svg "  <polyline points=\"%s\"%s%s%s/>" p stroke stroke_width fill
 
 let to_string (svg:t) =
   Buffer.contents svg ^ "</svg>\n"
