@@ -4,7 +4,8 @@ type entry =
     category : string;
     value : float;
     unit : string;
-    time : float
+    time : float;
+    min : float option
   }
 
 type entries =
@@ -33,14 +34,16 @@ let parse_file fname =
   let string = function `String s -> s | _ -> assert false in
   let float = function `Float x -> x | _ -> assert false in
   let string l k = List.assoc k l |> string in
+  let float_opt l k = List.assoc_opt k l |> Option.map float in
   let float l k = List.assoc k l |> float in
   let entries =
     List.filter_map
       (fun l ->
          let string = string l in
          let float = float l in
+         let float_opt = float_opt l in
          if List.mem_assoc "commit" l then None else
-           Some {name = string "name"; category = string "category"; value = float "value"; unit = string "unit"; time = float "time"}
+           Some {name = string "name"; category = string "category"; value = float "value"; unit = string "unit"; time = float "time"; min = float_opt "min"}
       ) yaml
   in
   let branch =
@@ -63,6 +66,7 @@ let load_dir ?branch dir =
     |> Array.to_list
     |> List.map (fun s -> dir ^ "/" ^ s)
     |> List.filter (fun s -> Filename.check_suffix s ".yaml")
+    |> List.sort_uniq compare
   in
   List.iter (add_file ?branch) files
 
@@ -87,5 +91,5 @@ let series () =
        let e = List.hd l in
        let l = List.map (fun e -> e.time, e.value) l in
        let l = List.sort (fun (t,_) (t',_) -> compare t t') l in
-       n, e.category, e.unit, l
+       n, e.category, e.unit, e.min, l
     ) (names ())

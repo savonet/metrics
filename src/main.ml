@@ -25,12 +25,12 @@ let () =
   w "<body>";
   w "<h1>Liquidsoap metrics</h1>";
   List.iter
-    (fun (name, _category, unit, data) ->
+    (fun (name, _category, unit, min, data) ->
        Printf.printf "Plotting '%s'\n" name;
        w "<h2>%s</h2>" (String.capitalize_ascii name);
        w "<div class=\"plot\">";
        let ordinate = Printf.sprintf "value (%s)" unit in
-       w "%s" (Plot.svg ~abscissa:"time (s)" ~ordinate ~width:800. ~height:400. data);
+       w "%s" (Plot.svg ~abscissa:"time (s)" ~ordinate ~width:800. ~height:400. ?y_min:min data);
        w "</div>"
     )
     (Metrics.series ());
