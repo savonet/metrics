@@ -52,11 +52,12 @@ let load_dir dir =
   in
   List.iter add_file files
 
-let load_liquidsoap ?(directory="/tmp/liquidsoap") () =
-  if not (Sys.file_exists directory) then
-    assert (Sys.command (Printf.sprintf "git clone -b metrics https://github.com/savonet/liquidsoap.git %s" directory) = 0)
-  else
-    assert (Sys.command (Printf.sprintf "cd %s && git pull" directory) = 0);
+let load_liquidsoap ?(update=false) ~directory () =
+  if update then
+    if not (Sys.file_exists directory) then
+      assert (Sys.command (Printf.sprintf "git clone -b metrics https://github.com/savonet/liquidsoap.git %s" directory) = 0)
+    else
+      assert (Sys.command (Printf.sprintf "cd %s && git pull" directory) = 0);
   load_dir directory
 
 (** All the possible names for tests. *)
