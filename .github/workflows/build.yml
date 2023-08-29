@@ -25,7 +25,7 @@ jobs:
     - name: Generate website
       run: |
         mkdir website
-        cp src/metrics.css website/
+        cp src/style.css website/
         cp metrics.html website/index.html
     - name: Upload website
       uses: actions/upload-pages-artifact@v2

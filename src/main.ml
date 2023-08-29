@@ -16,7 +16,7 @@ let () =
   w "<html>";
   w "<head>";
   w "<title>Liquidsoap metrics</title>";
-  w "<link rel=\"stylesheet\" href=\"metrics.css\">";
+  w "<link rel=\"stylesheet\" href=\"style.css\">";
   w "</head>";
   w "<body>";
   w "<h1>Liquidsoap metrics</h1>";
