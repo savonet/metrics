@@ -14,8 +14,10 @@ jobs:
       run: opam pin add -n .
     - name: Install dependencies
       run: opam depext -yt metrics
-    - name: Build and test
-      run: opam install -t .
+    - name: Build
+      run: opam install .
+    - name: Test
+      run: opam exec dune test
     - name: Download Liquidsoap data
       run: git clone -b metrics https://github.com/savonet/liquidsoap.git /tmp/metrics
     - name: Generate metrics
@@ -25,3 +27,11 @@ jobs:
       with:
         name: metrics
         path: metrics.html
+    - name: Generate website
+      run: |
+        mkdir website
+        cp metrics.html website/index.html
+    - name: Deploy website
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: website
