@@ -4,4 +4,4 @@ build:
 	@dune build
 
 test:
-	@dune exec ./main.exe
+	@dune exec -- ./main.exe --branch main
