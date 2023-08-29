@@ -12,8 +12,10 @@ let () =
   Metrics.load_liquidsoap ~update:!update ~directory:!dir ();
   let oc = open_out !fname in
   let w fmt = Printf.ksprintf (fun s -> output_string oc (s^"\n")) fmt in
+  w "<!DOCTYPE html>";
   w "<html>";
   w "<head>";
+  w "<title>Liquidsoap metrics</title>";
   w "<link rel=\"stylesheet\" href=\"metrics.css\">";
   w "</head>";
   w "<body>";
