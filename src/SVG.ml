@@ -26,7 +26,7 @@ let line svg ?stroke ?stroke_width ?style (x0,y0) (x1,y1) =
   let stroke = prop "stroke" stroke in
   let stroke_width = prop_float "stroke-width" stroke_width in
   let style = prop "style" style in
-  w svg "  <line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\"%s%s%s/>" x0 y0 x1 y1 stroke stroke_width style
+  w svg {|  <line x1="%f" y1="%f" x2="%f" y2="%f"%s%s%s/>|} x0 y0 x1 y1 stroke stroke_width style
 
 let text svg ?text_anchor ?fill ?transform (x,y) t =
   let text_anchor =
@@ -36,10 +36,10 @@ let text svg ?text_anchor ?fill ?transform (x,y) t =
     | Some `End -> "end"
     | None -> ""
   in
-  let text_anchor = if text_anchor = "" then "" else Printf.sprintf " text-anchor=\"%s\"" text_anchor in
+  let text_anchor = if text_anchor = "" then "" else Printf.sprintf {| text-anchor="%s"|} text_anchor in
   let fill = prop "fill" fill in
   let transform = prop "transform" transform in
-  w svg "  <text x=\"%f\" y=\"%f\"%s%s%s>%s</text>" x y fill text_anchor transform t
+  w svg {|  <text x="%f" y="%f"%s%s%s>%s</text>|} x y fill text_anchor transform t
 
 let polyline svg ?stroke ?stroke_width ?fill p =
   let p =
@@ -49,7 +49,7 @@ let polyline svg ?stroke ?stroke_width ?fill p =
   let stroke = prop "stroke" stroke in
   let stroke_width = prop_float "stroke-width" stroke_width in
   let fill = prop "fill" fill in
-  w svg "  <polyline points=\"%s\"%s%s%s/>" p stroke stroke_width fill
+  w svg {|  <polyline points="%s"%s%s%s/>|} p stroke stroke_width fill
 
 let to_string (svg:t) =
   Buffer.contents svg ^ "</svg>\n"

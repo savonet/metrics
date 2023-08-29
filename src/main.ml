@@ -19,7 +19,8 @@ let () =
   w "<html>";
   w "<head>";
   w "<title>Liquidsoap metrics</title>";
-  w "<link rel=\"stylesheet\" href=\"style.css\">";
+  w {|<link rel="stylesheet" href="style.css">|};
+  w {|<link rel="icon" type="image/png" href="http://liquidsoap.info/assets/img/favicon.ico">|};
   w "</head>";
   w "<body>";
   w "<h1>Liquidsoap metrics</h1>";
