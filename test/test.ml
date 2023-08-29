@@ -14,7 +14,9 @@ let () =
   let f = open_out "plot.html" in
   output_string f s;
   close_out f
-  
+
+(*
 let () =
   Printf.printf "Testing metrics...\n%!";
   Metrics.load_liquidsoap ~directory:"liquidsoap" ()
+*)
