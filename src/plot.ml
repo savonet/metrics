@@ -1,4 +1,4 @@
-let svg ?(margin=50.) ~width ~height ?x_min ?x_max ?y_min ?y_max points =
+let svg ?(margin=100.) ~width ~height ?(abscissa="") ?(ordinate="") ?x_min ?x_max ?y_min ?y_max points =
   let x_min', x_max', y_min', y_max' =
     let x, y = List.hd points in
     List.fold_left
@@ -18,14 +18,14 @@ let svg ?(margin=50.) ~width ~height ?x_min ?x_max ?y_min ?y_max points =
   let (++) (x,y) (x',y') = (x+.x',y+.y') in
   let coord (x,y) =
     margin +. (x -. x_min) /. (x_max -. x_min) *. width,
-    height -. ((y -. y_min) /. (y_max -. y_min) *. height)
+    margin +. height -. ((y -. y_min) /. (y_max -. y_min) *. height)
   in
   let points =
     points
     |> List.sort (fun (x,_) (x',_) -> compare x x')
     |> List.map coord
   in
-  let svg = SVG.create ~width:(width +. margin) ~height:(height +. margin) () in
+  let svg = SVG.create ~width:(width +. 2. *. margin) ~height:(height +. 2. *. margin) () in
   SVG.line svg ~stroke:"black" (coord (x_min,y_min)) (coord (x_max,y_min));
   SVG.line svg ~stroke:"black" (coord (x_min,y_min)) (coord (x_min,y_max));
   let ticks = 5 in
@@ -55,5 +55,8 @@ let svg ?(margin=50.) ~width ~height ?x_min ?x_max ?y_min ?y_max points =
       x +. tick/.2., y +. tick/.2.
     ];
   );
+  if abscissa <> "" then SVG.text svg (coord (x_max,y_min)) ~fill:"black" abscissa;
+  if ordinate <> "" then SVG.text svg (coord (x_min,y_max)) ~fill:"black" ~text_anchor:`Middle ordinate;
+  (* Actual plot *)
   SVG.polyline svg ~stroke:"red" ~stroke_width:2. ~fill:"none" points;
   SVG.to_string svg
