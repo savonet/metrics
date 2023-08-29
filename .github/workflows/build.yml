@@ -30,6 +30,7 @@ jobs:
     - name: Generate website
       run: |
         mkdir website
+        cp src/metrics.css website/
         cp metrics.html website/index.html
     - name: Deploy website
       uses: JamesIves/github-pages-deploy-action@v4
