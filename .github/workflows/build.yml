@@ -20,13 +20,14 @@ jobs:
       run: opam exec dune test
     - name: Download Liquidsoap data
       run: git clone -b metrics https://github.com/savonet/liquidsoap.git /tmp/metrics
-    - name: Generate metrics
-      run: opam exec -- metrics -i /tmp/metrics -o metrics.html --branch main
     - name: Generate website
       run: |
         mkdir website
         cp src/style.css website/
-        cp metrics.html website/index.html
+    - name: Generate metrics
+      run: |
+        opam exec -- metrics -i /tmp/metrics -o website/index.html
+        opam exec -- metrics -i /tmp/metrics -o website/main.html --branch main
     - name: Upload website
       uses: actions/upload-pages-artifact@v2
       with:
