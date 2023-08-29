@@ -22,11 +22,6 @@ jobs:
       run: git clone -b metrics https://github.com/savonet/liquidsoap.git /tmp/metrics
     - name: Generate metrics
       run: opam exec -- metrics -i /tmp/metrics -o metrics.html
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: metrics
-        path: metrics.html
     - name: Generate website
       run: |
         mkdir website
@@ -36,5 +31,16 @@ jobs:
       uses: actions/upload-pages-artifact@v2
       with:
         path: website
-    - name: Deploy pages
-      uses: actions/deploy-pages@v2
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
