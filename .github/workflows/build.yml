@@ -16,7 +16,7 @@ jobs:
       run: opam depext -yt metrics
     - name: Build and test
       run: opam install -t .
-    - name: Download metics
+    - name: Download Liquidsoap data
       run: git clone -b metrics https://github.com/savonet/liquidsoap.git /tmp/metrics
     - name: Generate metrics
       run: opam exec metrics -i /tmp/metrics -o metrics.html
