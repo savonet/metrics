@@ -32,7 +32,9 @@ jobs:
         mkdir website
         cp src/metrics.css website/
         cp metrics.html website/index.html
-    - name: Deploy website
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: Upload website
+      uses: actions/upload-pages-artifact@v2
       with:
-        folder: website
+        path: website
+    - name: Deploy pages
+      uses: actions/deploy-pages@v2
