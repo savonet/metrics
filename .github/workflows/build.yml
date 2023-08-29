@@ -19,7 +19,7 @@ jobs:
     - name: Download Liquidsoap data
       run: git clone -b metrics https://github.com/savonet/liquidsoap.git /tmp/metrics
     - name: Generate metrics
-      run: opam exec metrics -i /tmp/metrics -o metrics.html
+      run: opam exec -- metrics -i /tmp/metrics -o metrics.html
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
