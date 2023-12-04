@@ -5,3 +5,4 @@ Generate graphs from Liquidsoap metrics which are exported as YAML files on the
 
 The output of the latest run can be seen at
 <http://www.liquidsoap.info/metrics/>.
+
