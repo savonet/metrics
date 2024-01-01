@@ -3,6 +3,7 @@ let format_timestamp f =
   let formatter = Format.formatter_of_buffer buf in
   let timestamp = Option.get (Ptime.of_float_s f) in
   Ptime.pp_human () formatter timestamp;
+  Format.pp_print_flush formatter ();
   Buffer.contents buf
 
 let svg ?(margin = 100.) ~width ~height ?(abscissa = "") ?(ordinate = "") ?x_min
