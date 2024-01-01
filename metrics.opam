@@ -10,6 +10,7 @@ homepage: "https://github.com/savonet/metrics"
 bug-reports: "https://github.com/savonet/metrics/issues"
 depends: [
   "dune" {>= "2.9"}
+  "ptime"
   "yaml"
   "odoc" {with-doc}
 ]

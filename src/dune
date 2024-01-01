@@ -2,7 +2,7 @@
  (name plot)
  (wrapped false)
  (modules SVG plot metrics)
- (libraries yaml)
+ (libraries ptime yaml)
 )
 
 (executable

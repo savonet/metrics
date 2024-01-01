@@ -1,3 +1,10 @@
+let format_timestamp f =
+  let buf = Buffer.create 0 in
+  let formatter = Format.formatter_of_buffer buf in
+  let timestamp = Option.get (Ptime.of_float_s f) in
+  Ptime.pp_human () formatter timestamp;
+  Buffer.contents buf
+
 let svg ?(margin=100.) ~width ~height ?(abscissa="") ?(ordinate="") ?x_min ?x_max ?y_min ?y_max points =
   let x_min', x_max', y_min', y_max' =
     let x, y = List.hd points in
@@ -34,7 +41,7 @@ let svg ?(margin=100.) ~width ~height ?(abscissa="") ?(ordinate="") ?x_min ?x_ma
     let x = x_min  +. float i *. (x_max -. x_min) /. float ticks in
     let y = y_min in
     SVG.line svg ~stroke:"black" (coord (x,y) ++ (0.,-.tick/.2.)) (coord (x,y) ++ (0.,tick/.2.));
-    SVG.text svg (coord (x,y)) ~fill:"black" ~text_anchor:`Middle ~transform:"translate(0,20)" (string_of_float x);
+    SVG.text svg (coord (x,y)) ~fill:"black" ~text_anchor:`Middle ~transform:"translate(0,20)" (format_timestamp x);
     let x = x_min in
     let y = y_min +. float i *. (y_max -. y_min) /. float ticks in
     SVG.line svg ~stroke:"black" (coord (x,y) ++ (-.tick/.2.,0.)) (coord (x,y) ++ (tick/.2.,0.));

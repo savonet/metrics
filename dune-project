@@ -15,6 +15,7 @@
  (description "Generate graph from Liquidsoap metrics.")
  (depends
    dune
+   ptime
    yaml
  )
 )
