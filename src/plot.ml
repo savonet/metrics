@@ -1,10 +1,7 @@
 let format_timestamp f =
-  let buf = Buffer.create 0 in
-  let formatter = Format.formatter_of_buffer buf in
   let timestamp = Option.get (Ptime.of_float_s f) in
-  Ptime.pp_human () formatter timestamp;
-  Format.pp_print_flush formatter ();
-  Buffer.contents buf
+  let (y, m, d), _ = Ptime.to_date_time timestamp in
+  Printf.sprintf "%d-%d-%d" (y+1) m d
 
 let svg ?(margin = 100.) ~width ~height ?(abscissa = "") ?(ordinate = "") ?x_min
     ?x_max ?y_min ?y_max points =
