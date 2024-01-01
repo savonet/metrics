@@ -1,7 +1,7 @@
 let format_timestamp f =
   let timestamp = Option.get (Ptime.of_float_s f) in
   let (y, m, d), _ = Ptime.to_date_time timestamp in
-  Printf.sprintf "%d-%d-%d" (y+1) m d
+  Printf.sprintf "%d-%d-%d" y m d
 
 let svg ?(margin = 100.) ~width ~height ?(abscissa = "") ?(ordinate = "") ?x_min
     ?x_max ?y_min ?y_max points =
