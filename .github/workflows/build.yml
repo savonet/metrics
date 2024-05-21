@@ -29,7 +29,7 @@ jobs:
         opam exec -- metrics -i /tmp/metrics -o website/index.html
         opam exec -- metrics -i /tmp/metrics -o website/main.html --branch main
     - name: Upload website
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v4
       with:
         path: website
   deploy:
